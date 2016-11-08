@@ -36,15 +36,13 @@ class UserController extends Controller
         $rules = [
             'email' => 'required|email|unique:t_user',
             'tel' => 'numeric',
-            'pwd' => 'required|confirmed',
-            'pwd_confirmation' => 'required'
+            'pwd' => 'required|confirmed'
         ];
         $messages = [
             'email.required' => '注册邮箱不能为空',
             'email.email' => '只能是邮箱',
             'email.unique' => '该邮箱账号已被注册',
             'pwd.required' => '密码不能为空',
-            'pwd_confirmation.required' => '确认密码不能为空',
             'pwd.confirmed' => '两次输入的密码不一致',
             'tel.numeric' => '必须是数字',
         ];
@@ -53,31 +51,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->registerRules($request);
+        $return = User::create([
+                'email' => $request->email,
+                'password' => $request->pwd,
+        ]);
+        if ($return) {
 
-        $user = new User;
-        $user->email = $request->email;
-        $user->password = md5($request->pwd);
-        if ($user->save()) {
             return redirect('user');
         }
     }
-    public function login(Request $request)
-    {
-        $this->loginRules($request);
-        $user = User::where('email', $request->email)->first();
 
-        if ($user AND ($user->password == md5($request->pwd)))
-        {
-            // route 后面带的必须是路由的 name
-            auth()->login($user);
-            return redirect()->route('backend');
-        } else {
-            //$request->flash('email', 'pwd');
-            return back()->withInput()->with('login_fail', '账户或密码不正确');
-        }
-    }
     public function show()
     {
-        return view('user.register');
+
     }
 }

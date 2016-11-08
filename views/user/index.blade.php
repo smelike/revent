@@ -45,7 +45,7 @@
                 </ul>
             </div>
         @endif
-        <form class="form-signin" method="post" action="{{ url('user/login') }}">
+        <form class="form-signin" method="post" action="{{ url('login') }}">
             <h2 class="form-signin-heading">用户登陆</h2>
             {{ csrf_field() }}
             {{-- <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> --}}
@@ -56,7 +56,7 @@
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> 记住密码
             </label>
-            <p><a href="{{url('user/register')}}">还没有账号?请注册</a></p>
+            <p><a href="{{ url('register') }}">还没有账号?请注册</a></p>
 
             <button class="btn btn-large btn-primary" type="submit">登陆</button>
         </form>

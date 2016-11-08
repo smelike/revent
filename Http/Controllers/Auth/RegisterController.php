@@ -2,23 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use \App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
     use RegistersUsers;
 
@@ -27,7 +18,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/back';
 
     /**
      * Create a new controller instance.
@@ -36,22 +27,42 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest', ['register']);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function showRegistrationForm()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        return view('user.register');
+    }
+
+    public function register(Request $request)
+    {
+
+        $rules = [
+            'name' => 'required|alpha_dash',
+            'email' => 'required|email|unique:t_user',
+            'tel' => 'numeric',
+            'pwd' => 'required|confirmed'
+        ];
+        $messages = [
+            'name.required' => '名字不能为空',
+            'name.dash' => '名字不能包含非法字符',
+            'email.required' => '注册邮箱不能为空',
+            'email.email' => '只能是邮箱',
+            'email.unique' => '该邮箱账号已被注册',
+            'pwd.required' => '密码不能为空',
+            'pwd.confirmed' => '两次输入的密码不一致',
+            'tel.numeric' => '必须是数字',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        if (mb_substr_count($request->get('name'), '_') > 1 || mb_substr_count($request->get('name'), '-') > 1) {
+            return back()->withInput()->withErrors("name's '-' and '_' max count is 1.");
+        }
+
+        auth()->login($this->create($request));
+        return redirect($this->redirectTo);
     }
 
     /**
@@ -60,12 +71,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create($request)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'tel' => $request->tel,
+            'password' => md5($request->pwd),
+            //'pwd' => bcrypt($data['password']),
         ]);
     }
 }

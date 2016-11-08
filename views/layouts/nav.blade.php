@@ -1,35 +1,40 @@
+
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container">
+        <div class="container-fluid">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">Revent</a>
+            <a class="brand" href="{{ url('back') }}">Revent</a>
             <div class="nav-collapse collapse">
+
+                <p class="navbar-text pull-right">
+                    <a href="{{ url('/logout') }}" class="navbar-link" onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                        退出
+                    </a>
+                </p>
+                <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                      style="display: none;">
+                    {{ csrf_field() }}
+                </form>
                 <ul class="nav">
-                    <li class="active"><a href="#">首页</a></li>
-                    <li><a href="#about">关于</a></li>
-                    <li><a href="#contact">联系</a></li>
+                    <li class="active"><a href="{{ url('back') }}">首页</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">活动 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">活动<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">活动 1</a></li>
-                            <li><a href="#">活动 1</a></li>
-                            <li><a href="#">活动 1</a></li>
-                            <li><a href="#">活动 1</a></li>
-                            <li><a href="#">活动 1</a></li>
-                            <li><a href="#">活动 1</a></li>
+                            <li><a href="#">类型 1</a></li>
+                            <li><a href="#">类型 2</a></li>
+                            <li><a href="#">类型 3</a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">事件</li>
+                            <li><a href="#">类型 1</a></li>
+                            <li><a href="#">类型 2</a></li>
                         </ul>
                     </li>
                 </ul>
-
-                <form class="navbar-form pull-right">
-                    <input class="span2" type="text" placeholder="Email">
-                    <input class="span2" type="password" placeholder="Password">
-                    <button type="submit" class="btn">Sign in</button>
-                </form>
             </div><!--/.nav-collapse -->
         </div>
     </div>
