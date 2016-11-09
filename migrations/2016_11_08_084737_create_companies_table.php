@@ -15,7 +15,7 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('t_company', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('type_id');
+            $table->integer('type_id')->unsigned();
             $table->string('name');
             $table->string('addr');
             $table->string('manager');
@@ -25,6 +25,8 @@ class CreateCompaniesTable extends Migration
             $table->string('remark');
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('type_id')
+                ->references('id')->on('t_type');
         });
     }
 

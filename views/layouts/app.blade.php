@@ -1,27 +1,43 @@
-<!-- Stored in resources/views/layouts/app.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<html>
-    <head>
-        <title>App Name - @yield('title')</title>
-        <link rel="stylesheet" href="/revent/public/css/bootstrap.css" />
-        <style type="text/css">
-            body {
-                padding-top: 40px;
-                padding-bottom: 40px;
-                background-color: #f5f5f5;
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/revent/public/css/bootstrap.css" />
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
             }
-        </style>
-    </head>
-    <body>
-
-        {{-- @include('layouts.nav') --}}
-        <div class="container">
-            @include('layouts.error')
-            @yield('content')
-            {{-- @include('layouts.footer') --}}
-        </div>
-
+        }
+    </style>
+    <!-- Scripts -->
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+</head>
+<body>
+        @include('layouts.error')
+        @include('layouts.success')
+        @yield('content')
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="/revent/public/js/bootstrap.min.js"></script>
-    </body>
+</body>
 </html>

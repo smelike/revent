@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/user';
+    protected $redirectTo = '/back';
 
     /**
      * Create a new controller instance.
@@ -41,6 +41,10 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        if (auth()->check())
+        {
+            return redirect('back');
+        }
         return view('user.index');
     }
     public function login(Request $request)

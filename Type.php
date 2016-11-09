@@ -18,4 +18,9 @@ class Type extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    public function company()
+    {
+        return $this->hasOne('App\Company');
+    }
+
 }

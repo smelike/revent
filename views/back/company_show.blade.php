@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>类别: {{ $company->type_id }}</td>
+                    <td>类别: {{ $type->type }}</td>
                 </tr>
                 <tr>
                    <td>公司名称: {{ $company->name }}</td>
@@ -39,6 +39,16 @@
                     <td>备注: {{ $company->remark }}</td>
                 </tr>
 
+                <tr>
+                    <td>
+                        <a href="{{ url('company') }}/{{ $company->id }}/edit">
+                            <button type="button" class="btn btn-primary">修改</button>
+                        </a>
+                        <a href="{{ url('company/') }}/{{ $company->id }}/del">
+                            <button type="button" class="btn btn-warning">删除</button>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
         @else

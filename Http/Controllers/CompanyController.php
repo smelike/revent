@@ -21,7 +21,8 @@ class CompanyController extends Controller
     public function index()
     {
         $companys = \App\Company::all();
-        return view('back.company_index', compact('companys'));
+        $types = \App\Type::all();
+        return view('back.company_index', compact('companys', 'types'));
     }
 
     public function create()
@@ -30,19 +31,54 @@ class CompanyController extends Controller
         return view('back.company_create', compact('types'));
     }
 
+    public function edit($id)
+    {
+        if ((int)$id)
+        {
+            $types = \App\Type::all();
+            $company = \App\Company::find($id);
+
+            return view('back.company_edit', compact('company', 'types'));
+        }
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validateInfo($request);
+        $company = \App\Company::find($id);
+        $company->type_id = $request->id;
+        $company->name = $request->name;
+        $company->addr = $request->addr;
+        $company->manager = $request->manager;
+        $company->pay_fare = $request->pay_fare ? $request->pay_fare : '';
+        $company->fof = $request->fof ? $request->fof : '';
+        $company->new_wealth_vote = $request->new_wealth_vote ? $request->new_wealth_vote : '';
+        $company->remark = $request->remark ? $request->remark : '';
+        $company->save();
+
+        $redirect = 'company/' . $id;
+        return redirect($redirect)->with('success', '修改成功');
+    }
+    public function del($id)
+    {
+        if ((int) $id)
+        {
+            $company = \App\Company::find($id);
+            $company->delete();
+            return redirect('company')->with('success', '公司删除成功');
+        }
+    }
     public function show($id = 0)
     {
+
         if ($id)
         {
             $company = \App\Company::find($id);
-            //dd($company);
-            return view('back.company_show', compact('company'));
+            $type = \App\Type::where('id', $company->type_id)->first(['type']);
+            return view('back.company_show', compact('company', 'type'));
         }
-
         return back();
-
     }
-    public function store(Request $request)
+    private function validateInfo($request)
     {
         $rules = [
             'id' => 'integer|exists:t_type',
@@ -56,13 +92,18 @@ class CompanyController extends Controller
             'id.exists'   => '不存在的公司类型',
             'name.required' => '必须填写公司名称',
             'addr.required' => '必须填写公司地址',
+            'addr.alpha_dash' => '只是是字母, 数字, -',
             'manager.required' => '必须填写对口销售/服务经理',
         ];
         $this->validate($request, $rules, $messages);
+    }
+    public function store(Request $request)
+    {
 
-        if ($this->createCompany($request)) {
-            $request->session()->flash('create_company_success', '公司添加成功');
-            return redirect('company');
+        $this->validateInfo($request);
+        if ($this->createCompany($request))
+        {
+            return redirect('company')->with('success', '公司添加成功');
         }
     }
 

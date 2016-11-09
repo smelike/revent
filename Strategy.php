@@ -7,19 +7,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Authenticatable
+class Strategy extends Authenticatable
 {
     use Notifiable, SoftDeletes;
     //
+
     protected $guarded = [];
 
-    protected $table = "t_company";
+    protected $table = "t_strategy";
 
     protected $dates = ['deleted_at'];
 
-
-    public function type()
-    {
-        return $this->hasOne('App\Type');
-    }
 }

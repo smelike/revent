@@ -1,5 +1,4 @@
 <!-- Stored in resources/views/layouts/black.blade.php -->
-
 <html>
 <head>
     <title>App Name - @yield('title')</title>
@@ -26,16 +25,19 @@
 <div class="container-fluid">
 
     @include('layouts.error')
+    @include('layouts.success')
     <style type="text/css">
         .sidebar-nav {
             padding: 9px 0;
         }
     </style>
     <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
                     <li class="nav-header">菜单列表</li>
+                    <li><a href="{{ url('product') }}">产品类型</a></li>
+                    <li><a href="{{ url('strategy') }}">投资策略</a></li>
                     <li><a href="{{ url('company') }}">公司总览列表</a></li>
                     <li><a href="#">公司详情列表</a></li>
                     <li><a href="#">Link</a></li>
@@ -46,7 +48,7 @@
             </div><!--/.well -->
         </div><!--/span-->
 
-        <div class="span9">
+        <div class="span10">
             @yield('content')
         </div>
     </div>

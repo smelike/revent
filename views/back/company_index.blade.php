@@ -25,7 +25,15 @@
                     @foreach($companys as $company)
                 <tr>
                     <td>{{ $company->id }}</td>
-                    <td>{{ $company->type_id }}</td>
+
+                    <td>
+                        @foreach($types as $type)
+                            @if($type->id == $company->type_id)
+                                {{ $type->type }}
+                                @break
+                            @endif
+                        @endforeach
+                    </td>
                     <td><a href="{{ url('company') }}/{{$company->id}}">{{ $company->name }}</a></td>
                     <td>{{ $company->addr }}</td>
                 </tr>
