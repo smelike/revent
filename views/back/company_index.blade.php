@@ -1,7 +1,7 @@
 
 @extends('layouts.back')
 
-@section('title', '公司总览')
+@section('title', '公司列表')
 
 @section('content')
 
@@ -22,20 +22,20 @@
                 </thead>
                 <tbody>
                 @if($companys)
-                    @foreach($companys as $company)
+                    @foreach($companys as $key => $company)
                 <tr>
-                    <td>{{ $company->id }}</td>
+                    <td>{{ $key + 1 }}</td>
 
                     <td>
                         @foreach($types as $type)
-                            @if($type->id == $company->type_id)
+                            @if($type->id == $company->company_type_id)
                                 {{ $type->type }}
                                 @break
                             @endif
                         @endforeach
                     </td>
-                    <td><a href="{{ url('company') }}/{{$company->id}}">{{ $company->name }}</a></td>
-                    <td>{{ $company->addr }}</td>
+                    <td><a href="{{ url('company') }}/{{$company->id}}">{{ $company->company_name }}</a></td>
+                    <td>{{ $company->office_addr }}</td>
                 </tr>
                     @endforeach
                 @endif

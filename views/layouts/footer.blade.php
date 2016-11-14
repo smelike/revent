@@ -1,4 +1,4 @@
 
 <footer>
-    <p>&copy; Company 2013</p>
+    <p>&copy; Company @<?php echo date('Y'); ?></p>
 </footer>

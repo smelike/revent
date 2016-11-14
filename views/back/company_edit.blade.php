@@ -31,36 +31,10 @@
             </ul>
         </div>
     @endif
-    <form class="form-company" method="post" action="{{ url('company') }}/{{ $company->id }}/update">
+    <form class="form-company form-horizontal" method="post" action="{{ url('company') }}/{{ $company->id }}/update">
         {{ csrf_field() }}
         <h3>修改公司</h3>
-        <select class="form-control" name="id">
-            <option>公司类别</option>
-            @if(isset($types))
-                @foreach($types as $type)
-                    <option value="{{ $type->id }}" {{ ($company->id == $type->id) ? 'selected=selected' : ''}}>{{ $type->type }}</option>
-                @endforeach
-            @endif
-        </select>
-
-        <input type="text" name="name" class="input-block-level" placeholder="公司名称" value="{{ $company->name }}"/>
-        <input type="text" name="addr" class="input-block-level" placeholder="公司地址" value="{{ $company->addr }}"/>
-        <input type="text" name="manager" class="input-block-level" placeholder="对口销售/服务经理" value="{{ $company->manager }}"/>
-        <input type="text" name="pay_fare" class="input-block-level" placeholder="支付佣金" value="{{ $company->pay_fare }}" />
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="fof" {{ $company->fof ? "checked=true": ''}}>FOF投顾池
-            </label>
-            <label>
-                <input type="checkbox" name="new_wealth_vote" {{ $company->new_wealth_vote ? "checked=true": ''}}>新财富投票权
-            </label>
-        </div>
-        <div class="form-group"> <!-- Message input !-->
-            <textarea class="form-control" name="remark" placeholder="备注">{{ $company->remark ? $company->remark : ''}}</textarea>
-        </div>
-
-        <div class="form-group"> <!-- Submit button !-->
-            <button class="btn btn-primary " name="submit" type="submit">确定</button>
-        </div>
+        @include('back.company_basic_table')
+        @include('back.company_others_table')
     </form>
 @endsection

@@ -38,12 +38,9 @@
                     <li class="nav-header">菜单列表</li>
                     <li><a href="{{ url('product') }}">产品类型</a></li>
                     <li><a href="{{ url('strategy') }}">投资策略</a></li>
-                    <li><a href="{{ url('company') }}">公司总览列表</a></li>
-                    <li><a href="#">公司详情列表</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
+                    <li><a href="{{ url('company') }}">所有公司</a></li>
+                    <li><a href="{{ url('connect') }}">投研通讯录</a></li>
+                    <li><a href="{{ url('service') }}">服务记录</a></li>
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->

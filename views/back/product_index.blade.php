@@ -7,11 +7,12 @@
 
     <div class="panel panel-default">
         <div class="panel-body span3">
+
             <form class="form-inline" role="form" method="POST" action="{{ url('product') }}">
                 {{ csrf_field() }}
-                <input type="text" name="name" class="input-block-level" placeholder="产品类型名称" value="{{ old('name') }}"/>
-                <div class="form-group">
-                    <button class="btn btn-primary " name="submit" type="submit">确定</button>
+                <div class="input-append">
+                    <input type="text" name="name" class="input-block-level" placeholder="产品类型名称" value="{{ old('name') }}"/>
+                    <button class="btn btn-primary " name="submit" type="submit">确定添加</button>
                 </div>
             </form>
         </div>
