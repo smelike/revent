@@ -17,7 +17,19 @@
         <select class="form-control span4" id="product_type" name="product_type[]" multiple="multiple">
             @if(isset($product_types))
                 @foreach($product_types as $type)
-                    <option value="{{ $type->id }}" {{ (in_array($type->id, isset($company) ? $company->product_type : is_array(old('product_type')) ? old('product_type'): [])) ? 'selected=selected' : ''}}>{{ $type->name }}</option>
+                    @if(isset($company))
+                        @if(is_array($company->product_type) AND in_array($type->id, $company->product_type))
+                                <option value="{{$type->id}}" selected="selected">{{ $type->name }}</option>
+                            @else
+                                <option value="{{$type->id}}">{{ $type->name }}</option>
+                            @endif
+                    @else
+                        @if(is_array(old('product_type')) AND in_array($type->id, old('product_type')))
+                            <option value="{{$type->id}}" selected="selected">{{ $type->name }}</option>
+                        @else
+                            <option value="{{$type->id}}">{{ $type->name }}</option>
+                        @endif
+                    @endif
                 @endforeach
             @endif
         </select>
@@ -30,7 +42,19 @@
         <select class="form-control span4" id="invest_strategy" name="invest_strategy[]" multiple="multiple">
             @if(isset($strategy_types))
                 @foreach($strategy_types as $type)
-                    <option value="{{ $type->id }}" {{ (in_array($type->id, isset($company) ? $company->invest_strategy : is_array(old('invest_strategy')) ? old('invest_strategy'): [])) ? 'selected=selected' : ''}}>{{ $type->name }}</option>
+                    @if(isset($company))
+                        @if(is_array($company->invest_strategy) AND in_array($type->id, $company->invest_strategy))
+                            <option value="{{$type->id}}" selected="selected">{{ $type->name }}</option>
+                        @else
+                            <option value="{{$type->id}}">{{ $type->name }}</option>
+                        @endif
+                    @else
+                        @if(is_array(old('invest_strategy')) AND in_array($type->id, old('invest_strategy')))
+                            <option value="{{$type->id}}" selected="selected">{{ $type->name }}</option>
+                        @else
+                            <option value="{{$type->id}}">{{ $type->name }}</option>
+                        @endif
+                    @endif
                 @endforeach
             @endif
         </select>

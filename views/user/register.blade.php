@@ -38,6 +38,7 @@
     </style>
 
     <form class="form-signin" method="post" action="{{ url('register') }}">
+
         <h2 class="form-signin-heading">注册用户</h2>
         {{ csrf_field() }}
         {{-- <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> --}}

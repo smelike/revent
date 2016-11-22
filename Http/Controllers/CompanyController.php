@@ -41,7 +41,10 @@ class CompanyController extends Controller
             $company_types = \App\Type::all();
             $company = \App\Company::find($id);
             $company->invest_strategy = json_decode($company->invest_strategy, true);
+            $company->invest_strategy = $company->invest_strategy ? $company->invest_strategy : [];
             $company->product_type = json_decode($company->product_type, true);
+            $company->product_type = $company->product_type ? $company->product_type : [];
+
             $product_types = \App\Product::all();
             $strategy_types = \App\Strategy::all();
             return view('back.company_edit', compact('company', 'company_types', 'product_types', 'strategy_types'));
@@ -51,14 +54,24 @@ class CompanyController extends Controller
     {
         $this->validateInfo($request);
         $company = \App\Company::find($id);
-        $company->type_id = $request->id;
-        $company->name = $request->name;
-        $company->addr = $request->addr;
+        $company->company_type_id = $request->id;
+        $company->company_name = $request->company_name;
+        $company->industry_no = $request->industry_no;
+        $company->startup_date = $request->startup_date;
+        $company->office_addr = $request->office_addr;
+        $company->estate_scale = $request->estate_scale;
+        $company->profess_count = $request->profess_count;
+        $company->private_count = $request->private_count;
+        $company->product = $request->product;
+        $company->fellow = $request->fellow;
+        $company->personal_info = $request->personal_info;
+        $company->product_type = json_encode($request->product_type, JSON_FORCE_OBJECT);
+        $company->invest_strategy = json_encode($request->invest_strategy, JSON_FORCE_OBJECT);
+        $company->pay_fee = $request->pay_fee ? $request->pay_fee : '';
         $company->manager = $request->manager;
-        $company->pay_fare = $request->pay_fare ? $request->pay_fare : '';
         $company->fof = $request->fof ? $request->fof : '';
         $company->new_wealth_vote = $request->new_wealth_vote ? $request->new_wealth_vote : '';
-        $company->remark = $request->remark ? $request->remark : '';
+
         $company->save();
 
         $redirect = 'company/' . $id;

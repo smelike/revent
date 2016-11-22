@@ -45,8 +45,8 @@
             </tbody>
         </table>
 
-        <div class="form-group"> <!-- Submit button !-->
-            <button class="btn btn-primary " name="submit" type="submit">确定</button>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">确定</button>
         </div>
     </form>
 @endsection

@@ -46,6 +46,7 @@
             </div>
         @endif
         <form class="form-signin" method="post" action="{{ url('login') }}">
+
             <h2 class="form-signin-heading">用户登陆</h2>
             {{ csrf_field() }}
             {{-- <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> --}}

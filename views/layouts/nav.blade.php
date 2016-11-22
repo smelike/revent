@@ -22,8 +22,8 @@
                 </form>
                 <ul class="nav">
                     <li class="active"><a href="{{ url('back') }}">首页</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">活动<b class="caret"></b></a>
+                    {{-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle hidden" data-toggle="dropdown">活动<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">类型 1</a></li>
                             <li><a href="#">类型 2</a></li>
@@ -34,6 +34,7 @@
                             <li><a href="#">类型 2</a></li>
                         </ul>
                     </li>
+                    --}}
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

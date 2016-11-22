@@ -36,5 +36,8 @@
         <h3>修改公司</h3>
         @include('back.company_basic_table')
         @include('back.company_others_table')
+        <div class="form-group"> <!-- Submit button !-->
+            <button class="btn btn-primary " name="submit" type="submit">确定</button>
+        </div>
     </form>
 @endsection
